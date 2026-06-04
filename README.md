@@ -25,8 +25,21 @@ That's it. Atlas will introduce itself and walk you through the rest.
 
 - Your profile (name, email, role, tools)
 - Your Slack channels to monitor
+- Which folders Atlas can access on your machine
 - Your daily Atlas Briefing triggers (8:50am and 12:50pm, Mon–Fri)
 - Your first project file (optional)
+
+## Folder access
+
+Atlas can access the folder this repo lives in and everything alongside it by default. For example, if you clone into `~/Sites/archetype-ai-pa`, Atlas can read other repos in `~/Sites/`.
+
+If you're not a developer, or keep your work in a different place (e.g. `~/Documents`, `~/Uploads`, a shared drive), setup will ask you which folders to add. You can also edit `.claude/settings.json` at any time:
+
+```json
+{
+  "additionalDirectories": ["..", "/Users/yourname/Documents/client-work"]
+}
+```
 
 ## Personal files stay local
 

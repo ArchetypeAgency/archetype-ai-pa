@@ -36,19 +36,25 @@ Explain how to find a channel ID: open the channel in Slack → click the channe
 
 Collect channels one at a time until the user types "done".
 
-**Step 4 — Timezone**
+**Step 4 — Additional folders**
 
-7. What timezone are you in? (e.g. BST, CET, EST) — needed to schedule the briefing at the right time.
+Ask: "By default I can access the folder this repo sits in and everything alongside it — for example, if you keep client repos in `~/Sites/`, I can read those. Are there other folders you'd like me to access? For example, a Documents folder, an Uploads folder, or a shared drive. Type the full path, or 'none' to skip."
 
-**Step 5 — Write context/about.md**
+Collect folder paths one at a time until the user types "done" or "none". If any were provided, read `.claude/settings.json`, add the paths to the `additionalDirectories` array alongside `".."`, and write the file back.
+
+**Step 5 — Timezone**
+
+8. What timezone are you in? (e.g. BST, CET, EST) — needed to schedule the briefing at the right time.
+
+**Step 6 — Write context/about.md**
 
 Write `context/about.md` using the collected answers. Follow the structure in `context/about-template.md`. Include a `## PA setup` section at the bottom — leave trigger IDs as `[to be filled]` for now.
 
-**Step 6 — First project (optional)**
+**Step 7 — First project (optional)**
 
 Ask: "Do you want to add your first project now? I can walk you through it." If yes: ask for client name, background (1–2 sentences), current focus, and any outstanding items. Write to `context/projects/[client-name].md` following the structure in `context/projects/_template.md`. If no, move on.
 
-**Step 7 — Set up Atlas Briefing triggers**
+**Step 8 — Set up Atlas Briefing triggers**
 
 Create two scheduled briefing triggers — one at 8:50am and one at 12:50pm in the user's local timezone, Mon–Fri. Convert to UTC for the cron expression (e.g. BST = UTC+1, so 8:50am BST = `50 7 * * 1-5`).
 
@@ -130,7 +136,7 @@ Trigger body structure to pass to `RemoteTrigger` create:
 
 Create the morning trigger first, then the midday trigger. After both are created, update the `## PA setup` section of `context/about.md` with both trigger IDs and cron expressions.
 
-**Step 8 — Complete**
+**Step 9 — Complete**
 
 Tell the user setup is complete and summarise what was configured. Ask: "Want me to run the briefing now to test everything?" If yes, fire the morning trigger via `RemoteTrigger` action `run`. Then transition into a normal session start.
 
