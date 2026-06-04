@@ -22,10 +22,11 @@ Ask in order:
 3. What's your Slack handle? (e.g. `@firstname.lastname`)
 4. What's your Slack member ID? Explain how to find it: open Slack → click your profile picture (bottom left) → View Profile → click ⋯ (More) → Copy member ID. It looks like `UXXXXXXXXX`.
 
-**Step 2 — Role and tools**
+**Step 2 — Role and working style**
 
 5. What's your role at Archetype and what do you primarily work on? (e.g. "developer — client websites and SEO audits")
 6. What tools do you use regularly? (e.g. Ahrefs, WPEngine, Figma, Render, Google Docs)
+7. How do you prefer responses — short and direct, or more detail? And how do you deliver work to clients? (e.g. Google Docs, GitHub, WPEngine)
 
 **Step 3 — Slack channels**
 
@@ -52,7 +53,7 @@ Ask: "Do you want to add your first project now? I can walk you through it." If 
 Create two scheduled briefing triggers — one at 8:50am and one at 12:50pm in the user's local timezone, Mon–Fri. Convert to UTC for the cron expression (e.g. BST = UTC+1, so 8:50am BST = `50 7 * * 1-5`).
 
 First, run `RemoteTrigger` with action `list` to check for existing triggers. If any exist, extract:
-- `environment_id` from `job_config.ccr.session_context` (or `job_config.ccr`)
+- `environment_id` from `job_config.ccr.environment_id` (top-level field inside `ccr`, not inside `session_context`)
 - Slack `connector_uuid` from the `mcp_connections` array
 
 If no triggers exist, omit `environment_id` from the body and omit the `mcp_connections` key entirely.

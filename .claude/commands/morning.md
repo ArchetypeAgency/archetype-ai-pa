@@ -4,7 +4,10 @@ Run a structured morning briefing across all active projects.
 
 ## Steps
 
-1. **Read all context files** in `context/projects/` to know which projects are active and which Slack channels/DMs to check.
+1. **Read context files** to know which Slack channels to check:
+   - Always read `context/about.md` — it contains the full Slack channel list
+   - Also read any files in `context/projects/` for project-specific context
+   - If no project files exist, use the channels from `context/about.md` only
 
 2. **Check Slack** for each active project:
    - Pull the last 20 messages from each relevant channel or group DM
