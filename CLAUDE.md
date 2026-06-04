@@ -60,7 +60,7 @@ Tell the user:
 
 > "Atlas can scan your Outlook inbox as part of every briefing — surfacing emails from project contacts and flagging anything that needs your attention. To connect it, type `/mcp` in the prompt and select **claude.ai Microsoft 365**."
 
-Wait for them to confirm it's connected (they'll see "Authentication successful" in the terminal). Once connected, email scanning is live for `/sweep` and `/dm`.
+Wait for them to confirm it's connected (they'll see "Authentication successful" in the terminal). Once connected, email scanning is live for `/scan` and `/dm`.
 
 If they skip this step, note it in `context/about.md` under `## PA setup` so it can be set up later. Email scanning will simply be omitted from briefings until connected.
 
@@ -73,6 +73,12 @@ First, run `RemoteTrigger` with action `list` to check for existing triggers. If
 - Slack `connector_uuid` from the `mcp_connections` array
 
 If no triggers exist, omit `environment_id` from the body and omit the `mcp_connections` key entirely.
+
+**Finding connector UUIDs:** The claude.ai UI does not display connector UUIDs. To get them, have the user navigate to this URL in their browser while logged into claude.ai (substituting their org UUID):
+```
+https://claude.ai/api/organizations/{org-uuid}/mcp/remote_servers
+```
+This returns a JSON array of all connectors with `uuid`, `name`, and `url`. The org UUID can be found from earlier XHR responses on claude.ai (look for `organizationUUID` in any account API response). Include both Slack and Microsoft 365 connectors in `mcp_connections` when creating triggers.
 
 Use `uuidgen` via Bash to generate a unique UUID for each trigger event.
 
@@ -208,15 +214,15 @@ If you notice a gap in your own instructions — something you had to figure out
 ## Tools
 
 - **Slack MCP** — Pull channels and threads directly; don't ask the user to paste them.
-- **Microsoft 365 MCP** — Scan Outlook email for project-relevant messages. Connect via `/mcp` → claude.ai Microsoft 365. Used in `/sweep`, `/dm`, and scheduled briefings.
+- **Microsoft 365 MCP** — Scan Outlook email for project-relevant messages. Connect via `/mcp` → claude.ai Microsoft 365. Used in `/scan`, `/dm`, and scheduled briefings.
 - **Ahrefs MCP** — Pull live SEO data when working on audits or strategy. Use the `doc` tool before calling an Ahrefs tool for the first time.
 - **Google Drive MCP** — Read and create docs for client deliverables.
 - **Figma MCP** — Access design files directly from URLs.
 
 ## Commands
 
-- `/sweep` — Slack sweep + email scan across all active projects; delivers a structured Atlas Briefing in the conversation
-- `/dm` — Same as `/sweep` but sends the briefing as a Slack DM
+- `/scan` — Slack and email scan across all active projects; delivers a structured Atlas Briefing in the conversation
+- `/dm` — Same as `/scan` but sends the briefing as a Slack DM
 - `/update` — Write session learnings back to context files
 
 ## Code work — Dex

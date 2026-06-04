@@ -1,6 +1,6 @@
-# Sweep
+# Scan
 
-Run a Slack sweep and email scan across all active projects and deliver a structured briefing.
+Run a Slack and email scan across all active projects and deliver a structured briefing.
 
 ## Steps
 

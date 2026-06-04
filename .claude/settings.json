@@ -1,3 +1,18 @@
 {
-  "additionalDirectories": [".."]
+  "additionalDirectories": [".."],
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'Run the Atlas session start briefing now: read context/about.md and all context/projects/ files, then output the project summary (one line per active project with current focus and top open item). Output the briefing immediately.'; exit 2",
+            "asyncRewake": true,
+            "rewakeMessage": "Session started. ",
+            "statusMessage": "Loading Atlas briefing..."
+          }
+        ]
+      }
+    ]
+  }
 }
