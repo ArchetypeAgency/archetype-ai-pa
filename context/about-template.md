@@ -1,11 +1,10 @@
 # About
 
-Copy this file to `context/about.md` on your personal branch and fill it in.
-
 ## Identity
 - Name: [Your name]
 - Email: [Your email]
 - Slack handle: [e.g. @firstname.lastname]
+- Slack member ID: [e.g. UXXXXXXXXX — find it in Slack: profile picture → View Profile → ⋯ → Copy member ID]
 
 ## Role
 - Job title and team at Archetype
@@ -21,4 +20,9 @@ List the channels and group DMs relevant to your projects, with their channel ID
 - `#channel-name` (ID: CXXXXXXXXX) — what project this relates to
 
 ## Preferences
-- Anything else the PA should know about how you like to work
+- Anything else Atlas should know about how you like to work
+
+## PA setup
+- Atlas Briefing (morning): [trigger ID] (cron: [expression])
+- Atlas Briefing (midday): [trigger ID] (cron: [expression])
+- When clocks change, update cron expressions to maintain 8:50am and 12:50pm local time

@@ -4,45 +4,29 @@ A personal assistant for Archetype team members, built on Claude Code.
 
 ## What it does
 
+- Runs a guided setup on first launch — no manual config needed
 - Orients you on your active projects at the start of each session
 - Checks Slack for updates across your project channels (including threads)
 - Tracks outstanding items and surfaces what needs attention
 - Updates project context as you work, so context is always current
-- `/morning` — structured daily briefing
-- `/update` — write session learnings back to context files
+- Sends a scheduled briefing to your Slack DM twice a day
 
 ## Setup
-
-### 1. Clone the repo
 
 ```bash
 git clone git@github.com:ArchetypeAgency/archetype-ai-pa.git
 cd archetype-ai-pa
-```
-
-### 2. Set up your personal context
-
-```bash
-cp context/about-template.md context/about.md
-```
-
-Fill in `context/about.md` with your name, email, Slack channels, and preferences.
-
-### 3. Add your projects
-
-```bash
-cp context/projects/_template.md context/projects/[client-name].md
-```
-
-Fill in one file per active client or project. Add more files as needed.
-
-### 4. Run it
-
-```bash
 claude
 ```
 
-Atlas reads your context files automatically at session start.
+That's it. Atlas will introduce itself and walk you through the rest.
+
+## What setup configures
+
+- Your profile (name, email, role, tools)
+- Your Slack channels to monitor
+- Your daily Atlas Briefing triggers (8:50am and 12:50pm, Mon–Fri)
+- Your first project file (optional)
 
 ## Personal files stay local
 
@@ -54,4 +38,4 @@ Atlas reads your context files automatically at session start.
 
 ## Sharing improvements back
 
-If you improve a command, CLAUDE.md, or a template in a way that benefits everyone, open a PR to `main`. Your personal context files won't be staged, so there's no risk of accidentally committing them.
+If you improve a command, CLAUDE.md, or a template in a way that benefits everyone, open a PR to `main`. Your personal context files won't be staged, so there's no risk of committing them.
