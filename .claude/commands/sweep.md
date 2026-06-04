@@ -1,6 +1,6 @@
-# Morning Briefing
+# Sweep
 
-Run a structured morning briefing across all active projects.
+Run a Slack sweep across all active projects and deliver a structured briefing.
 
 ## Steps
 
@@ -17,7 +17,7 @@ Run a structured morning briefing across all active projects.
 3. **Output a structured briefing** in this format:
 
 ```
-## Morning Briefing — [date]
+## Atlas Briefing — [date]
 
 ### 🔴 Needs action
 [Items requiring a response or decision from the user today]

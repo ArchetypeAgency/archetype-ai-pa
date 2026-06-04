@@ -199,7 +199,7 @@ If you notice a gap in your own instructions — something you had to figure out
 
 ## Commands
 
-- `/morning` — Full structured Slack sweep + daily briefing across all projects
+- `/sweep` — Slack sweep across all active projects; delivers a structured Atlas Briefing
 - `/update` — Write session learnings back to context files
 
 ## Code work — Dex
