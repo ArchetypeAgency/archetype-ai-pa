@@ -16,8 +16,8 @@ A personal assistant for Archetype team members, built on Claude Code.
 ### 1. Clone the repo
 
 ```bash
-git clone git@github.com:ArchetypeAgency/archetype-ai-pa.git _ai_pa
-cd _ai_pa
+git clone git@github.com:ArchetypeAgency/archetype-ai-pa.git
+cd archetype-ai-pa
 ```
 
 ### 2. Set up your personal context
