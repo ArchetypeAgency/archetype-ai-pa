@@ -7,7 +7,7 @@ Run a structured morning briefing across all active projects.
 1. **Read all context files** in `context/projects/` to know which projects are active and which Slack channels/DMs to check.
 
 2. **Check Slack** for each active project:
-   - Pull the last 5 messages from each relevant channel or group DM
+   - Pull the last 20 messages from each relevant channel or group DM
    - For every message that has replies, read the full thread using `slack_read_thread`
    - Note the timestamp of the most recent activity
 
@@ -17,7 +17,7 @@ Run a structured morning briefing across all active projects.
 ## Morning Briefing — [date]
 
 ### 🔴 Needs action
-[Items requiring a response or decision from Ryan today]
+[Items requiring a response or decision from the user today]
 
 ### 🟡 In progress / waiting
 [Items where work is underway or waiting on others]
@@ -36,5 +36,5 @@ Run a structured morning briefing across all active projects.
 
 ## Notes
 - Always check threads — top-level messages without threads often miss the most recent replies
-- If a project has no Slack channel recorded, note it and ask Ryan
+- If a project has no Slack channel recorded, note it and ask the user
 - Keep the briefing tight — one line per item unless something needs explanation
