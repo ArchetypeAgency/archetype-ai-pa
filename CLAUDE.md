@@ -54,7 +54,17 @@ Write `context/about.md` using the collected answers. Follow the structure in `c
 
 Ask: "Do you want to add your first project now? I can walk you through it." If yes: ask for client name, background (1–2 sentences), current focus, and any outstanding items. Write to `context/projects/[client-name].md` following the structure in `context/projects/_template.md`. If no, move on.
 
-**Step 8 — Set up Atlas Briefing triggers**
+**Step 8 — Connect Microsoft 365 (Outlook email)**
+
+Tell the user:
+
+> "Atlas can scan your Outlook inbox as part of every briefing — surfacing emails from project contacts and flagging anything that needs your attention. To connect it, type `/mcp` in the prompt and select **claude.ai Microsoft 365**."
+
+Wait for them to confirm it's connected (they'll see "Authentication successful" in the terminal). Once connected, email scanning is live for `/sweep` and `/dm`.
+
+If they skip this step, note it in `context/about.md` under `## PA setup` so it can be set up later. Email scanning will simply be omitted from briefings until connected.
+
+**Step 9 — Set up Atlas Briefing triggers**
 
 Create two scheduled briefing triggers — one at 8:50am and one at 12:50pm in the user's local timezone, Mon–Fri. Convert to UTC for the cron expression (e.g. BST = UTC+1, so 8:50am BST = `50 7 * * 1-5`).
 
@@ -78,18 +88,23 @@ Channels to check:
 
 Also run a thread scan: use slack_search_public_and_private with query "[SLACK HANDLE] is:thread" to catch threads where [NAME] is mentioned that may not appear in the above channels.
 
+Scan Outlook email using outlook_email_search. Search for unread emails from known project contacts: [LIST CONTACTS FROM context/projects/ FILES — e.g. Matt Pugh, Riz, Cecile Missildine, Remi Fresnel, Steve at QVC, Simon, Howie, Ash, Stephanie, Clara]. Also search for unread emails from @archetype.co colleagues. Surface any unread emails from outside this list that look potentially important: high importance flag, client or agency domains, hosting/service alerts (WPEngine, Render, AWS), or project keywords in the subject. Skip newsletters and automated digests unless actionable.
+
 Produce a structured briefing:
 
 ## Atlas Briefing — [today's date, time]
 
 ### 🔴 Needs action
-[Items requiring response or decision from [NAME] today]
+[Items requiring response or decision from [NAME] today — Slack and email combined]
 
 ### 🟡 In progress / waiting
 [Work underway or waiting on others]
 
 ### 🟢 No change
 [Projects with no new activity]
+
+### 📧 Email
+[Actionable emails only. One line each — sender, subject, why it matters.]
 
 Keep it tight — one line per item unless something needs explanation. Always check threads before summarising any message.
 
@@ -136,7 +151,7 @@ Trigger body structure to pass to `RemoteTrigger` create:
 
 Create the morning trigger first, then the midday trigger. After both are created, update the `## PA setup` section of `context/about.md` with both trigger IDs and cron expressions.
 
-**Step 9 — Complete**
+**Step 10 — Complete**
 
 Tell the user setup is complete and summarise what was configured. Ask: "Want me to run the briefing now to test everything?" If yes, fire the morning trigger via `RemoteTrigger` action `run`. Then transition into a normal session start.
 
@@ -193,13 +208,15 @@ If you notice a gap in your own instructions — something you had to figure out
 ## Tools
 
 - **Slack MCP** — Pull channels and threads directly; don't ask the user to paste them.
+- **Microsoft 365 MCP** — Scan Outlook email for project-relevant messages. Connect via `/mcp` → claude.ai Microsoft 365. Used in `/sweep`, `/dm`, and scheduled briefings.
 - **Ahrefs MCP** — Pull live SEO data when working on audits or strategy. Use the `doc` tool before calling an Ahrefs tool for the first time.
 - **Google Drive MCP** — Read and create docs for client deliverables.
 - **Figma MCP** — Access design files directly from URLs.
 
 ## Commands
 
-- `/sweep` — Slack sweep across all active projects; delivers a structured Atlas Briefing
+- `/sweep` — Slack sweep + email scan across all active projects; delivers a structured Atlas Briefing in the conversation
+- `/dm` — Same as `/sweep` but sends the briefing as a Slack DM
 - `/update` — Write session learnings back to context files
 
 ## Code work — Dex
