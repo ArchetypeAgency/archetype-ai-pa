@@ -1,0 +1,4 @@
+# Personal context — fill these in locally, never commit them
+context/about.md
+context/projects/*.md
+!context/projects/_template.md

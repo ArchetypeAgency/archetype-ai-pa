@@ -1,4 +1,4 @@
-# Archetype PA
+# Archetype PA — Atlas
 
 A personal assistant for Archetype team members, built on Claude Code.
 
@@ -13,10 +13,11 @@ A personal assistant for Archetype team members, built on Claude Code.
 
 ## Setup
 
-### 1. Create your personal branch
+### 1. Clone the repo
 
 ```bash
-git checkout -b [your-name]
+git clone git@github.com:ArchetypeAgency/archetype-ai-pa.git _ai_pa
+cd _ai_pa
 ```
 
 ### 2. Set up your personal context
@@ -25,7 +26,7 @@ git checkout -b [your-name]
 cp context/about-template.md context/about.md
 ```
 
-Fill in `context/about.md` with your role, Slack channels, and preferences.
+Fill in `context/about.md` with your name, email, Slack channels, and preferences.
 
 ### 3. Add your projects
 
@@ -33,7 +34,7 @@ Fill in `context/about.md` with your role, Slack channels, and preferences.
 cp context/projects/_template.md context/projects/[client-name].md
 ```
 
-Fill in one file per active client or project.
+Fill in one file per active client or project. Add more files as needed.
 
 ### 4. Run it
 
@@ -41,13 +42,16 @@ Fill in one file per active client or project.
 claude
 ```
 
-The PA reads your context files automatically at session start.
+Atlas reads your context files automatically at session start.
 
-## Branch structure
+## Personal files stay local
 
-- `main` — shared base: instructions, commands, templates. Don't put personal info here.
-- `[your-name]` — your personal branch: `context/about.md` + your project files
+`context/about.md` and your project files are gitignored — they live on your machine and are never committed. This means:
 
-## Updating shared improvements
+- No branch management
+- `git pull` always works cleanly to pick up shared improvements
+- Your personal context is yours alone
 
-If you improve the commands or CLAUDE.md in a way that benefits everyone, open a PR to `main`.
+## Sharing improvements back
+
+If you improve a command, CLAUDE.md, or a template in a way that benefits everyone, open a PR to `main`. Your personal context files won't be staged, so there's no risk of accidentally committing them.
