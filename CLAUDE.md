@@ -224,6 +224,7 @@ If you notice a gap in your own instructions — something you had to figure out
 - `/scan` — Slack and email scan across all active projects; delivers a structured Atlas Briefing in the conversation
 - `/dm` — Same as `/scan` but sends the briefing as a Slack DM
 - `/update` — Write session learnings back to context files
+- `/timesheet` — Generate a weekly timesheet table from git logs and calendar data, then DM it to Ryan. Standard week: Mon 7.5h, Tue 7.5h, Wed 3.75h, Thu 3.75h (no Fridays) = 22.5h total. Two fixed non-project lines: **Internal meetings** (calendar meetings not discussing a specific client — pull actual durations) and **Internal admin** (~15% of remaining hours, skewed to lighter days). Table format: `| Day | Code | Project | Notes | Hours |` — one row per day per client/type, multiple items collated into one Notes cell. Maconomy codes come from `context/projects/` files. See `.claude/commands/timesheet.md` for full steps.
 
 ## Agent personas
 
