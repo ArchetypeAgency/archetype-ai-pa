@@ -1,14 +1,16 @@
 # Timesheet
 
-Generate a weekly timesheet table from git activity and DM it to Ryan.
+Generate a weekly timesheet from git activity and calendar, then DM it to the user.
 
-## Standard week
+## Setup
 
-- Monday: 7.5 hrs
-- Tuesday: 7.5 hrs
-- Wednesday: 3.75 hrs
-- Thursday: 3.75 hrs
-- **Total: 22.5 hrs** (no Fridays)
+Before doing anything else:
+
+1. Read `context/about.md` to get:
+   - The user's **Slack member ID** (used as the DM channel in step 6)
+   - The **`## Work schedule`** section — this defines the working days and hours for the week
+
+2. Read all files in `context/projects/` and extract the `**Local path:**` value from each file. These are the repos to check for git activity. Ignore any project file that has no `**Local path:**` value.
 
 Use two non-project lines:
 - **Internal meetings** — calendar meetings not discussing a client (standups, training, company-wide calls, etc.). Pull durations directly from the calendar.
@@ -16,65 +18,48 @@ Use two non-project lines:
 
 ## Steps
 
-1. **Determine the current week.** Work out the Monday–Thursday dates for the current week.
+1. **Determine the current week.** Work out the dates for each working day in the current week based on the work schedule read from `context/about.md`.
 
-2. **Check the calendar** using `outlook_calendar_search` with `afterDateTime` = Monday and `beforeDateTime` = Friday. Extract all events where Ryan is an attendee (not just organiser). Note:
-   - Ignore "Non-Work Hours" blocks — these define when Ryan isn't working, not billable time
+2. **Check the calendar** using `outlook_calendar_search` with `afterDateTime` = first working day and `beforeDateTime` = day after last working day. Extract all events where the user is an attendee (not just organiser). Note:
+   - Ignore "Non-Work Hours" blocks — these define when the user isn't working, not billable time
    - Ignore cancelled events
    - Internal meetings (team standups, Digital Bantz, training sessions, company-wide calls, any meeting not discussing a specific client) → **Internal meetings** line
    - Client/project meetings (SMF catch-up, Elastic, QVC calls, etc.) → count toward that project
    - Note meeting durations per day so they inform hour allocation
 
-3. **Check git logs** for Mon–Thu across these repos (relative to `~/Sites/`):
-   - `smf-movewhatmatters` — SMF Move What Matters
-   - `archetype-uk-non-bedrock` — Archetype UK
-   - `archetype-apac` — Archetype APAC
-   - `elastic-dashboard` — Elastic C-Suite Dashboard
-   - `qvc-core-wp-engine` — QVC
-   - `qvc-careers-wp-engine` — QVC Careers
-
-   For each repo, run:
+3. **Check git logs** for the working days across all repos extracted from `context/projects/` in the setup step. The local paths are relative to the user's home directory (or absolute if they start with `/`). For each repo, run:
    ```
-   git log --format="%ad %s" --date=format:"%a %d %b" --after="[Mon date]" --before="[Fri date]"
+   git log --format="%ad %s" --date=format:"%a %d %b" --after="[first working day]" --before="[day after last working day]"
    ```
 
 4. **Allocate hours** by day and project based on commit volume, significance, and calendar events:
    - Weight hours toward days with heavier commit activity
    - If a day has commits in multiple repos, split proportionally
    - Days with only light commits or comms (no dev) should have more internal admin
+   - Hours per day must exactly match the schedule from `context/about.md`
 
-5. **Build the table** with this format:
+5. **Build the table** with this format (rows repeat for each working day; use the hours from `context/about.md` for each day's subtotal and the weekly total):
 
 ```
-### 📊 Timesheet — week of [Mon date]
+### 📊 Timesheet — week of [first working day date]
 
 | Day | Code | Project | Notes | Hours |
 |---|---|---|---|---|
-| Monday | [code] | [Project] | [what was done] | [h] |
-| Monday | — | Internal meetings | [meeting 1, meeting 2, ...] | [h] |
-| Monday | — | Internal admin | Email, Slack | [h] |
-| **Monday** | | | | **7.5** |
-| Tuesday | [code] | [Project] | [what was done] | [h] |
-| Tuesday | — | Internal meetings | [meeting 1, meeting 2, ...] | [h] |
-| Tuesday | — | Internal admin | Email, Slack | [h] |
-| **Tuesday** | | | | **7.5** |
-| Wednesday | [code] | [Project] | [what was done] | [h] |
-| Wednesday | — | Internal meetings | [meeting 1, meeting 2, ...] | [h] |
-| Wednesday | — | Internal admin | Email, Slack | [h] |
-| **Wednesday** | | | | **3.75** |
-| Thursday | [code] | [Project] | [what was done] | [h] |
-| Thursday | — | Internal admin | Email, Slack | [h] |
-| **Thursday** | | | | **3.75** |
-| **TOTAL** | | | | **22.5** |
+| [Day] | [code] | [Project] | [what was done] | [h] |
+| [Day] | — | Internal meetings | [meeting 1, meeting 2, ...] | [h] |
+| [Day] | — | Internal admin | Email, Slack | [h] |
+| **[Day]** | | | | **[day total]** |
+...
+| **TOTAL** | | | | **[week total]** |
 ```
 
 One row per day per client/type. Multiple meetings of the same type on the same day are collated into one Notes cell (comma-separated). Project rows use the Maconomy code from the project's context file (`context/projects/`). Internal meetings and admin use `—` for the code. Omit the Internal meetings row on days with no internal meetings.
 
-6. **Send as a Slack DM** to Ryan using `slack_send_message` with channel `UE253F4KU`.
+6. **Send as a Slack DM** to the user using `slack_send_message` with channel set to the Slack member ID read from `context/about.md`.
 
 7. **Confirm** in the conversation that the DM was sent.
 
 ## Notes
 - Only include projects where there was actual activity that day
 - If a day had no dev commits (pure comms/meetings), allocate all non-admin hours to the most relevant project for that day's discussions
-- Hours must add up exactly: Mon 7.5, Tue 7.5, Wed 3.75, Thu 3.75, total 22.5
+- Hours must add up exactly per day and in total, matching the schedule in `context/about.md`
