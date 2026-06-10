@@ -5,17 +5,17 @@ Run a Slack and email scan across all active projects and deliver a structured b
 ## Steps
 
 1. **Read context files** to know which Slack channels and project contacts to check:
-   - Always read `context/about.md` — it contains the full Slack channel list
+   - Always read `context/about.md` — it contains the full Slack channel list, Slack handle, and member ID
    - Also read any files in `context/projects/` for project-specific context and contacts
    - If no project files exist, use the channels from `context/about.md` only
 
 2. **Check Slack** for each active project:
    - Pull the last 20 messages from each relevant channel or group DM
    - For every message that has replies, read the full thread using `slack_read_thread`
-   - Also run a thread scan: `slack_search_public_and_private` with query `@ryan.letbe-holder is:thread`
+   - Also run a thread scan: `slack_search_public_and_private` with query `[SLACK HANDLE] is:thread` (handle from `context/about.md`)
 
 3. **Scan email** using `outlook_email_search`:
-   - Search for unread emails from known project contacts (names and domains from context files — e.g. Matt Pugh, Riz, Cecile Missildine, Remi Fresnel, Steve at QVC, Simon at APAC, Howie, Ash, Stephanie, Clara)
+   - Search for unread emails from known project contacts (names and domains from context files)
    - Also search for unread emails from `@archetype.co` colleagues
    - Surface any unread emails from outside this list that look potentially important: emails marked high importance, emails from client or agency domains, hosting/service alerts (WPEngine, Render, AWS), anything with project keywords in the subject
 
@@ -45,8 +45,16 @@ Run a Slack and email scan across all active projects and deliver a structured b
 
 6. **Flag any context files that look stale** (last-updated date more than 3 days ago relative to today's date).
 
+7. **BrainPie** — check `context/about.md` for a Brain Pie section with Firebase config.
+   - If it exists: skip (BrainPie already syncs at session start via `/brainpie`).
+   - If it doesn't exist: offer at the end of the briefing:
+
+   > "Want me to set up BrainPie for your projects? I can build a pie from your open tasks and walk you through connecting it to Firebase so it stays in sync. Takes about 5 minutes — or skip it for now."
+
+   If the user wants to proceed, refer them to the `/brainpie` setup flow.
+
 ## Notes
 - Always check Slack threads before summarising any message
-- For email, filter ruthlessly — only surface things that need Ryan's attention or awareness. Skip newsletters, webinars, automated digests unless actionable
+- For email, filter ruthlessly — only surface things that need the user's attention or awareness. Skip newsletters, webinars, automated digests unless actionable
 - If a project has no Slack channel recorded, note it and ask the user
 - Keep the briefing tight — one line per item unless something needs explanation

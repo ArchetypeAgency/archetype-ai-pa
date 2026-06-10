@@ -11,7 +11,7 @@ Run a Slack sweep and email scan across all active projects and deliver the brie
 2. **Check Slack** for each active project:
    - Pull the last 20 messages from each relevant channel or group DM
    - For every message that has replies, read the full thread using `slack_read_thread`
-   - Also run a thread scan: `slack_search_public_and_private` with query `@ryan.letbe-holder is:thread`
+   - Also run a thread scan: `slack_search_public_and_private` with query `[SLACK HANDLE] is:thread` (handle from `context/about.md`)
 
 3. **Scan email** using `outlook_email_search`:
    - Search for unread emails from known project contacts (names and domains from context files — e.g. Matt Pugh, Riz, Cecile Missildine, Remi Fresnel, Steve at QVC, Simon at APAC, Howie, Ash, Stephanie, Clara)
@@ -46,5 +46,5 @@ Run a Slack sweep and email scan across all active projects and deliver the brie
 
 ## Notes
 - Always check Slack threads before summarising any message
-- For email, filter ruthlessly — only surface things that need Ryan's attention or awareness. Skip newsletters, webinars, automated digests unless actionable
+- For email, filter ruthlessly — only surface things that need the user's attention or awareness. Skip newsletters, webinars, automated digests unless actionable
 - Keep the briefing tight — one line per item unless something needs explanation

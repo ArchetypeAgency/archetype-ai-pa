@@ -168,8 +168,9 @@ Tell the user setup is complete and summarise what was configured. Ask: "Want me
 At the start of every session (after confirming `context/about.md` exists):
 1. Read `context/about.md` to understand who you're working with and how they like to work
 2. Read all files in `context/projects/` to orient yourself on active work
-3. Output a brief summary — one line per active project showing current focus and top open item
-4. Note today's date and flag anything time-sensitive
+3. If `context/about.md` has a **Brain Pie** section with Firebase config, run `/brainpie` to sync `context/brainpie.json`. Otherwise skip silently.
+4. Output a brief summary — one line per active project showing current focus and top open item
+5. Note today's date and flag anything time-sensitive
 
 Example format:
 ```
@@ -224,7 +225,8 @@ If you notice a gap in your own instructions — something you had to figure out
 - `/scan` — Slack and email scan across all active projects; delivers a structured Atlas Briefing in the conversation
 - `/dm` — Same as `/scan` but sends the briefing as a Slack DM
 - `/update` — Write session learnings back to context files
-- `/timesheet` — Generate a weekly timesheet table from git logs and calendar data, then DM it to Ryan. Standard week: Mon 7.5h, Tue 7.5h, Wed 3.75h, Thu 3.75h (no Fridays) = 22.5h total. Two fixed non-project lines: **Internal meetings** (calendar meetings not discussing a specific client — pull actual durations) and **Internal admin** (~15% of remaining hours, skewed to lighter days). Table format: `| Day | Code | Project | Notes | Hours |` — one row per day per client/type, multiple items collated into one Notes cell. Maconomy codes come from `context/projects/` files. See `.claude/commands/timesheet.md` for full steps.
+- `/brainpie` — Sync `context/brainpie.json` with current project state: remove completed tasks, add new ones, update due dates. Auto-runs at session start. See `.claude/commands/brainpie.md` for full spec.
+- `/timesheet` — Generate a weekly timesheet table from git logs and calendar data, then DM it to the user. Standard hours and work days come from `context/about.md` (Work schedule section). Two fixed non-project lines: **Internal meetings** (calendar meetings not discussing a specific client — pull actual durations) and **Internal admin** (~15% of remaining hours, skewed to lighter days). Table format: `| Day | Code | Project | Notes | Hours |` — one row per day per client/type, multiple items collated into one Notes cell. Maconomy codes come from `context/projects/` files. See `.claude/commands/timesheet.md` for full steps.
 
 ## Agent personas
 
