@@ -57,7 +57,7 @@ Use two non-project lines:
 - One row per project. If a project spans multiple days, fill in each day's hours across the row.
 - Leave day cells blank (not 0) when no work was done on that project that day.
 - **Task** values: `Digital` for client dev work; `Internal Admin` for overhead; `Internal Meetings` for non-client meetings
-- **Job No.** uses Maconomy code from `context/projects/`. For internal rows, use the internal admin job code if known — otherwise leave blank.
+- **Job No.** uses Maconomy code from `context/projects/`. Internal rows always use `41620002` (Internal Project - Admin).
 - Hours per column must sum to the scheduled hours for that day (from `context/about.md`)
 - Total column = sum of all day columns for that row
 
