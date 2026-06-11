@@ -38,25 +38,31 @@ Use two non-project lines:
    - Days with only light commits or comms (no dev) should have more internal admin
    - Hours per day must exactly match the schedule from `context/about.md`
 
-5. **Build the table** with this format (rows repeat for each working day; use the hours from `context/about.md` for each day's subtotal and the weekly total):
+5. **Build the table** — one section per working day, projects as rows within each section:
 
 ```
 ### 📊 Timesheet — week of [first working day date]
 
-| Day | Code | Project | Description | Hours |
-|---|---|---|---|---|
-| [Day] | [code] | [Project] | [what was done] | [h] |
-| [Day] | — | Internal meetings | [meeting 1, meeting 2, ...] | [h] |
-| [Day] | — | Internal admin | Email, Slack | [h] |
-| **[Day total]** | | | | **[h]** |
+*[Day, date]*
+| Code | Project | Description | Hours |
+|---|---|---|---|
+| [code] | [Project] | [what was done] | [h] |
+| — | Internal meetings | [meeting 1, meeting 2, ...] | [h] |
+| — | Internal admin | Email, Slack | [h] |
+| | | **Total** | **[day total]** |
+
+*[Next day, date]*
+| Code | Project | Description | Hours |
 ...
-| **TOTAL** | | | | **[week total]** |
+
+*Week total: [h]*
 ```
 
-- Columns: Day | Code | Project | Description | Hours
-- Day is on the Y axis (leftmost column, one row per project line per day)
-- One row per day per client/type. Multiple meetings of the same type on the same day are collated into one Description cell (comma-separated).
-- Project rows use the Maconomy code from the project's context file (`context/projects/`). Internal meetings and admin use `—` for the code.
+- Day is a section header (italic, not a column)
+- Columns within each section: Code | Project | Description | Hours
+- Projects run top to bottom as rows; one row per project per day
+- Multiple meetings of the same type on the same day collated into one Description cell (comma-separated)
+- Project rows use the Maconomy code from `context/projects/`. Internal meetings and admin use `—` for code.
 - Omit the Internal meetings row on days with no internal meetings.
 
 6. **Send as a Slack DM** to the user using `slack_send_message` with channel set to the Slack member ID read from `context/about.md`.
