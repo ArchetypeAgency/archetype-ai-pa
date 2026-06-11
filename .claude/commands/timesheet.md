@@ -38,32 +38,28 @@ Use two non-project lines:
    - Days with only light commits or comms (no dev) should have more internal admin
    - Hours per day must exactly match the schedule from `context/about.md`
 
-5. **Build the table** — one section per working day, projects as rows within each section:
+5. **Build the table** — pivot format. One row per project, working days as columns:
 
 ```
 ### 📊 Timesheet — week of [first working day date]
 
-*[Day, date]*
-| Code | Project | Description | Hours |
-|---|---|---|---|
-| [code] | [Project] | [what was done] | [h] |
-| — | Internal meetings | [meeting 1, meeting 2, ...] | [h] |
-| — | Internal admin | Email, Slack | [h] |
-| | | **Total** | **[day total]** |
-
-*[Next day, date]*
-| Code | Project | Description | Hours |
-...
-
-*Week total: [h]*
+| Job No. | Job Name | Task | Text | Mon | Tue | Wed | Thu | Total |
+|---|---|---|---|---|---|---|---|---|
+| [code] | [Project name] | Digital | [what was done] | [h] | [h] | | | [h] |
+| [code] | [Project name] | Digital | [what was done] | | [h] | [h] | | [h] |
+| [code] | Internal Project - Admin | Internal Meetings | [meeting names] | [h] | | | | [h] |
+| [code] | Internal Project - Admin | Internal Admin | Email, Slack | [h] | [h] | [h] | [h] | [h] |
+| | | | **Total** | **[h]** | **[h]** | **[h]** | **[h]** | **[h]** |
 ```
 
-- Day is a section header (italic, not a column)
-- Columns within each section: Code | Project | Description | Hours
-- Projects run top to bottom as rows; one row per project per day
-- Multiple meetings of the same type on the same day collated into one Description cell (comma-separated)
-- Project rows use the Maconomy code from `context/projects/`. Internal meetings and admin use `—` for code.
-- Omit the Internal meetings row on days with no internal meetings.
+- **Columns:** Job No. | Job Name | Task | Text | Mon | Tue | Wed | Thu | Total
+- Only include the working days from `context/about.md` (e.g. Ryan works Mon–Thu, no Fri)
+- One row per project. If a project spans multiple days, fill in each day's hours across the row.
+- Leave day cells blank (not 0) when no work was done on that project that day.
+- **Task** values: `Digital` for client dev work; `Internal Admin` for overhead; `Internal Meetings` for non-client meetings
+- **Job No.** uses Maconomy code from `context/projects/`. For internal rows, use the internal admin job code if known — otherwise leave blank.
+- Hours per column must sum to the scheduled hours for that day (from `context/about.md`)
+- Total column = sum of all day columns for that row
 
 6. **Send as a Slack DM** to the user using `slack_send_message` with channel set to the Slack member ID read from `context/about.md`.
 
