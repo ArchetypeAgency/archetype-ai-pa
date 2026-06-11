@@ -43,17 +43,21 @@ Use two non-project lines:
 ```
 ### 📊 Timesheet — week of [first working day date]
 
-| Day | Code | Project | Notes | Hours |
+| Day | Code | Project | Description | Hours |
 |---|---|---|---|---|
 | [Day] | [code] | [Project] | [what was done] | [h] |
 | [Day] | — | Internal meetings | [meeting 1, meeting 2, ...] | [h] |
 | [Day] | — | Internal admin | Email, Slack | [h] |
-| **[Day]** | | | | **[day total]** |
+| **[Day total]** | | | | **[h]** |
 ...
 | **TOTAL** | | | | **[week total]** |
 ```
 
-One row per day per client/type. Multiple meetings of the same type on the same day are collated into one Notes cell (comma-separated). Project rows use the Maconomy code from the project's context file (`context/projects/`). Internal meetings and admin use `—` for the code. Omit the Internal meetings row on days with no internal meetings.
+- Columns: Day | Code | Project | Description | Hours
+- Day is on the Y axis (leftmost column, one row per project line per day)
+- One row per day per client/type. Multiple meetings of the same type on the same day are collated into one Description cell (comma-separated).
+- Project rows use the Maconomy code from the project's context file (`context/projects/`). Internal meetings and admin use `—` for the code.
+- Omit the Internal meetings row on days with no internal meetings.
 
 6. **Send as a Slack DM** to the user using `slack_send_message` with channel set to the Slack member ID read from `context/about.md`.
 
