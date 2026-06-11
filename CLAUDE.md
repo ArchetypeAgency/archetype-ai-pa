@@ -166,11 +166,12 @@ Tell the user setup is complete and summarise what was configured. Ask: "Want me
 ## Session start
 
 At the start of every session (after confirming `context/about.md` exists):
-1. Read `context/about.md` to understand who you're working with and how they like to work
-2. Read all files in `context/projects/` to orient yourself on active work
-3. If `context/about.md` has a **Brain Pie** section with Firebase config, run `/brainpie` to sync `context/brainpie.json`. Otherwise skip silently.
-4. Output a brief summary — one line per active project showing current focus and top open item
-5. Note today's date and flag anything time-sensitive
+1. Run `TZ="Europe/London" date` via Bash to get the actual current time — use it to greet appropriately (Good morning / Good afternoon / Good evening) and flag anything time-sensitive for today
+2. Read `context/about.md` to understand who you're working with and how they like to work
+3. Read all files in `context/projects/` to orient yourself on active work
+4. If `context/about.md` has a **Brain Pie** section with Firebase config, run `/brainpie` to sync `context/brainpie.json`. Otherwise skip silently.
+5. Output a brief summary — one line per active project showing current focus and top open item
+6. Note today's date and flag anything time-sensitive
 
 Example format:
 ```

@@ -18,6 +18,7 @@
 ## Slack channels to monitor
 List the channels and group DMs relevant to your projects, with their channel IDs:
 - `#channel-name` (ID: CXXXXXXXXX) — what project this relates to
+- Threads pane has no API equivalent. Best approximation: search `@[name] is:thread` for threads where user is mentioned. Does not catch threads user started where others replied without mentioning them.
 
 ## Preferences
 - Anything else Atlas should know about how you like to work
