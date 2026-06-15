@@ -34,7 +34,7 @@ Compare the live pie against current project context. Apply these rules:
 - **Add** spokes only for tasks that are genuinely new (appeared in context since the last sync) and not already present in the pie
 - **Never re-add** spokes that are absent from the pie — absence means the user deleted them
 - **Preserve** all user-set percentages, colors, IDs, and scheduled dates exactly as they are
-- **If** unsure whether something is new or a user deletion, ask before adding
+- **If** unsure whether something is new or a user deletion: if running interactively (user-invoked), ask before adding. If running as part of session start (auto-run), skip the ambiguous item and surface it in the session summary instead — do not stall waiting for input.
 
 New spoke structure:
 ```json

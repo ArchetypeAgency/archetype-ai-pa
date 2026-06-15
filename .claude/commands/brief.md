@@ -57,6 +57,8 @@ Read the relevant `context/projects/` file. Match the project based on:
 
 If multiple sources point to the same project, proceed. If sources span different projects, ask the user whether to write one combined brief or separate ones before continuing. If the project is unclear, ask.
 
+If the project is identified from raw notes (no URL to cross-reference), state the assumed project explicitly — e.g. "This looks like SMF — is that right?" — before writing the brief. Do not assume silently.
+
 ### 4. Determine the recipient
 
 Decide who the brief is for:
@@ -105,7 +107,7 @@ Create `context/briefs/<project-slug>-<YYYY-MM-DD>.md` using this format:
 Show the brief to the user. Ask:
 > "Ready to spawn [Artor/Dex] with this brief?"
 
-If yes: spawn the appropriate agent via the Agent tool, passing the full brief as context. The agent prompt should open by establishing who they are (per the CLAUDE.md persona definitions), state the brief clearly, and ask them to get to work.
+If yes: spawn the appropriate agent via the Agent tool, passing the full brief as context. The agent prompt must include the full persona description verbatim from CLAUDE.md (copy the entire named section — e.g. "Artor — design director..." or "Dex — senior developer..." — and paste it at the top of the prompt). Agents start with zero context; referencing the name alone is not enough. After the persona block, state the brief in full and ask them to get to work.
 
 If no, or if the user wants to edit: make any requested changes first, then ask again.
 

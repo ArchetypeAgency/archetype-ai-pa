@@ -18,6 +18,7 @@ Run a Slack and email scan across all active projects and deliver a structured b
    - Search for unread emails from known project contacts (names and domains from context files)
    - Also search for unread emails from `@archetype.co` colleagues
    - Surface any unread emails from outside this list that look potentially important: emails marked high importance, emails from client or agency domains, hosting/service alerts (WPEngine, Render, AWS), anything with project keywords in the subject
+   - If `outlook_email_search` is unavailable (M365 not connected), skip this step entirely. In the briefing, include a one-line note under `### 📧 Email`: "Email scanning unavailable — connect Microsoft 365 via `/mcp` to enable."
 
 4. **Output a structured briefing** in this format:
 

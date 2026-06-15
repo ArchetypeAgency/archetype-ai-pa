@@ -16,7 +16,9 @@ Save session learnings back to the relevant project context files.
 3. **Add a last-updated date** to any file you modify, in the format:
    `**Last updated:** YYYY-MM-DD`
 
-4. **Report back** — list which files were updated and what changed in each.
+4. **Check `context/about.md`** — if anything about the user's own setup changed this session (new Slack channels, preference update, new tool, changed working hours), update `context/about.md` too.
+
+5. **Report back** — list which files were updated and what changed in each.
 
 ## What warrants an update
 - A task was completed ✅

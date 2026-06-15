@@ -23,6 +23,7 @@ Use two non-project lines:
 2. **Check the calendar** using `outlook_calendar_search` with `afterDateTime` = first working day and `beforeDateTime` = day after last working day. Extract all events where the user is an attendee (not just organiser). Note:
    - Ignore "Non-Work Hours" blocks — these define when the user isn't working, not billable time
    - Ignore cancelled events
+   - Ignore all-day events (holidays, out-of-office markers, bank holidays) — they are structural markers, not billable time
    - Internal meetings (team standups, Digital Bantz, training sessions, company-wide calls, any meeting not discussing a specific client) → **Internal meetings** line
    - Client/project meetings (SMF catch-up, Elastic, QVC calls, etc.) → count toward that project
    - Note meeting durations per day so they inform hour allocation
