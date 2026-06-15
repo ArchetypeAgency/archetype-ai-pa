@@ -4,7 +4,12 @@ Sync `context/brainpie.json` with the live brainpie.app via Firebase RTDB, then 
 
 ## How it works
 
-Atlas reads the pie from Firebase, reconciles it against current project context, and writes it back. No Playwright or browser needed.
+Atlas is the liaison between the user and BrainPie. The pie is a **shared, live data source** — the user edits it directly in the app at any time. Always treat Firebase as the source of truth. Never assume that a spoke absent from the pie needs to be re-added; if it's gone, the user removed it intentionally.
+
+Use a **pull, then push** approach:
+1. Read the live pie from Firebase first
+2. Apply only additive changes (new tasks not yet tracked) and removals (tasks marked ✅ in context files)
+3. Keep context files in sync with what you observe in the pie — if spokes have been removed or added by the user, update the context files to reflect that
 
 Firebase config is in `context/about.md` under **Brain Pie**.
 
@@ -24,12 +29,12 @@ curl -s "${DB}/brainpie/${PROJECT}/users/${UID}/pies/<activePieId>.json?auth=${S
 
 ### 2. Reconcile against project context
 
-Use the project context already loaded at session start. Apply these rules:
-- **Remove** spokes for tasks marked ✅ in context files
-- **Add** spokes for outstanding tasks not yet in the pie
-- **Add/remove** slices and categories as projects change
-- **Preserve** user-set percentages, colors, IDs, and scheduled dates
-- **If** unsure about a slice/spoke, ask before making any change
+Compare the live pie against current project context. Apply these rules:
+- **Remove** spokes for tasks marked ✅ in context files — but only if the spoke is still in the pie
+- **Add** spokes only for tasks that are genuinely new (appeared in context since the last sync) and not already present in the pie
+- **Never re-add** spokes that are absent from the pie — absence means the user deleted them
+- **Preserve** all user-set percentages, colors, IDs, and scheduled dates exactly as they are
+- **If** unsure whether something is new or a user deletion, ask before adding
 
 New spoke structure:
 ```json
@@ -65,5 +70,7 @@ List what was added, removed, or updated — one line each.
 
 ## Notes
 - Always read before writing — never reconstruct from scratch
+- BrainPie is a live data source; the user updates it directly. Pull first, always.
+- A spoke missing from the pie means the user deleted it — do not re-add it
 - `lastModified` must be updated on every write (epoch ms) so the app knows the data is fresh
 - Meta only needs updating if pieIds/pieNames change — most syncs only touch the pie blob
