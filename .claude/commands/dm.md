@@ -2,6 +2,8 @@
 
 Run a Slack sweep and email scan across all active projects and deliver the briefing as a Slack DM.
 
+> **Note:** `dm.md` and `scan.md` share the same core logic (steps 1–3). If you update the scanning or email steps here, mirror the change in `scan.md`.
+
 ## Steps
 
 1. **Read context files** to know which Slack channels and project contacts to check:

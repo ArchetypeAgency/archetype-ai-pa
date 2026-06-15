@@ -2,6 +2,8 @@
 
 Run a Slack and email scan across all active projects and deliver a structured briefing.
 
+> **Note:** `scan.md` and `dm.md` share the same core logic (steps 1–3). If you update the scanning or email steps here, mirror the change in `dm.md`.
+
 ## Steps
 
 1. **Read context files** to know which Slack channels and project contacts to check:

@@ -74,3 +74,4 @@ List what was added, removed, or updated — one line each.
 - A spoke missing from the pie means the user deleted it — do not re-add it
 - `lastModified` must be updated on every write (epoch ms) so the app knows the data is fresh
 - Meta only needs updating if pieIds/pieNames change — most syncs only touch the pie blob
+- Valid spoke `type` values: `static` (single task line — always use this for Atlas-generated spokes) and `list` (multi-step task with `children` array, each child has `text` and `completed` boolean). When in doubt, use `static`.

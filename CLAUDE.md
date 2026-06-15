@@ -180,7 +180,7 @@ At the start of every session (after confirming `context/about.md` exists):
 3. Read all files in `context/projects/` to orient yourself on active work
 4. If `context/about.md` has a **Brain Pie** section with Firebase config, run `/brainpie` to sync `context/brainpie.json`. Otherwise skip silently.
 5. Output a brief summary — one line per active project showing current focus and top open item
-6. Note today's date and flag anything time-sensitive
+6. Note today's date and flag anything time-sensitive. If a UK DST transition falls within the next 7 days (last Sunday of March = clocks forward to BST/UTC+1; last Sunday of October = clocks back to GMT/UTC+0), remind the user to update the Atlas Briefing trigger cron expressions.
 
 Example format:
 ```
@@ -232,7 +232,7 @@ If you notice a gap in your own instructions — something you had to figure out
 
 ## Commands
 
-- `/brief` — Turn a Slack thread, Drive doc, Figma URL, or pasted notes into a structured implementation brief; saves to `context/briefs/` and offers to spawn Artor or Dex immediately
+- `/brief` — Turn a Slack thread, Drive doc, Figma URL, or pasted notes into a structured implementation brief; saves to `context/briefs/` and offers to spawn Artor (who may brief Iesa or Dex) or Dex directly
 - `/scan` — Slack and email scan across all active projects; delivers a structured Atlas Briefing in the conversation
 - `/dm` — Same as `/scan` but sends the briefing as a Slack DM
 - `/update` — Write session learnings back to context files
