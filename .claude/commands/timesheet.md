@@ -29,8 +29,10 @@ Use two non-project lines:
 
 3. **Check git logs** for the working days across all repos extracted from `context/projects/` in the setup step. The local paths are relative to the user's home directory (or absolute if they start with `/`). For each repo, run:
    ```
-   git log --format="%ad %s" --date=format:"%a %d %b" --after="[first working day]" --before="[day after last working day]"
+   git log --format="%ad %s" --date=format:"%a %d %b" --after="[day before first working day]" --before="[day after last working day]"
    ```
+
+> Note: `--after` is exclusive in git — use the day before the first working day so that commits on Monday are included.
 
 4. **Allocate hours** by day and project based on commit volume, significance, and calendar events:
    - Weight hours toward days with heavier commit activity

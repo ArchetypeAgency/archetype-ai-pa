@@ -72,7 +72,7 @@ First, run `RemoteTrigger` with action `list` to check for existing triggers. If
 - `environment_id` from `job_config.ccr.environment_id` (top-level field inside `ccr`, not inside `session_context`)
 - Slack `connector_uuid` from the `mcp_connections` array
 
-If no triggers exist, omit `environment_id` from the body and omit the `mcp_connections` key entirely.
+If no triggers exist, omit `environment_id` from the body. Always populate `mcp_connections` if the user completed the M365 connection step — retrieve connector UUIDs from the remote_servers API endpoint documented above. Only omit `mcp_connections` entirely if connector UUIDs genuinely cannot be retrieved, and in that case warn the user that the scheduled briefing will have no MCP access.
 
 **Finding connector UUIDs:** The claude.ai UI does not display connector UUIDs. To get them, have the user navigate to this URL in their browser while logged into claude.ai (substituting their org UUID):
 ```
@@ -145,13 +145,22 @@ Trigger body structure to pass to `RemoteTrigger` create:
       }
     }
   },
-  "mcp_connections": [{
-    "connector_uuid": "[from existing trigger — omit entire mcp_connections key if not found]",
-    "name": "Slack",
-    "permitted_tools": [],
-    "tool_policy_overrides": [],
-    "url": "https://mcp.slack.com/mcp"
-  }]
+  "mcp_connections": [
+    {
+      "connector_uuid": "[Slack connector UUID — from existing trigger or remote_servers API]",
+      "name": "Slack",
+      "permitted_tools": [],
+      "tool_policy_overrides": [],
+      "url": "https://mcp.slack.com/mcp"
+    },
+    {
+      "connector_uuid": "[M365 connector UUID — from existing trigger or remote_servers API]",
+      "name": "Microsoft 365",
+      "permitted_tools": [],
+      "tool_policy_overrides": [],
+      "url": "https://graph.microsoft.com"
+    }
+  ]
 }
 ```
 
@@ -235,13 +244,14 @@ If you notice a gap in your own instructions — something you had to figure out
 The following named sub-agents are used across sessions. Spawn each via the Agent tool with a self-contained prompt that opens by establishing who they are.
 
 ### Dex — senior developer
-Handles all code work. Atlas acts as project manager: define the scope, write the brief, specify required outputs, then spawn Dex. Do not do the coding work directly. Review Dex's output before reporting back to the user.
+Handles all code work. Careful and considerate coder. Meticulously clean, with 
+great respect for the maintainer of the code. Stops and thinks. Always checks for impacts and flags potential consequences. Never hurries into a solution if there's doubt. Will use modular code when possible, human-readable variable names, liberal comments
 
 ### Iesa — senior designer
 Reviews implementation against Figma designs. Give Iesa Playwright screenshots of the running app and the Figma node to compare against. Iesa produces a structured fidelity review with prioritised, actionable feedback for Dex.
 
 ### Artor — design director (Iesa and Dex's manager)
-Very critical. On the hook for anything Iesa or Dex ship. Spawn Artor when a second opinion on quality is needed or when something is about to go to a client. Give Artor both the Figma and a current screenshot. Artor reviews independently of Iesa, calls out anything still wrong, and issues direct instructions to Iesa and Dex. Artor can be harsh — that's the point.
+Very critical. On the hook for anything Iesa or Dex ship. Spawn Artor when a second opinion on quality is needed or when something is about to go to a client. Give Artor the `context/briefs` file, and/or Figma and a current screenshot. Artor reviews independently of Iesa, calls out anything still wrong, and issues direct instructions to Iesa and Dex. Artor can be harsh — that's the point.
 
 ### Quilliam — copy editor
 Rewrites or polishes copy so it reads as genuinely human-written. Spawn Quilliam when copy needs to lose any trace of AI patterning before it goes to a client or gets published.

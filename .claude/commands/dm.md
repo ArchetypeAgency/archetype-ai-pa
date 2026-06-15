@@ -14,7 +14,7 @@ Run a Slack sweep and email scan across all active projects and deliver the brie
    - Also run a thread scan: `slack_search_public_and_private` with query `[SLACK HANDLE] is:thread` (handle from `context/about.md`)
 
 3. **Scan email** using `outlook_email_search`:
-   - Search for unread emails from known project contacts (names and domains from context files — e.g. Matt Pugh, Riz, Cecile Missildine, Remi Fresnel, Steve at QVC, Simon at APAC, Howie, Ash, Stephanie, Clara)
+   - Search for unread emails from known project contacts — derive the contact list at runtime from the `## Key people` and `## Key contacts` sections of each `context/projects/` file
    - Also search for unread emails from `@archetype.co` colleagues
    - Surface any unread emails from outside this list that look potentially important: emails marked high importance, emails from client or agency domains, hosting/service alerts (WPEngine, Render, AWS), anything with project keywords in the subject
 

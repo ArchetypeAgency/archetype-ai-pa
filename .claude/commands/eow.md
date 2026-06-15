@@ -8,7 +8,7 @@ Compile a weekly summary of work done, then find the trigger message in the dev 
    - `context/about.md` — Slack handle, member ID, channel list, Brain Pie config
    - All files in `context/projects/` — active projects, Maconomy codes, current focus
 
-2. **Find the trigger message** in the dev team channel (`#ops-development-uk`, ID: `GK79HAEQM`):
+2. **Find the trigger message** in the dev team channel. The channel ID is in `context/about.md` under `#ops-development-uk`:
    - Read the last 20 messages from the channel using `slack_read_channel`
    - Find the most recent message from the user that contains "what did I do this week" (case-insensitive)
    - Note its `ts` (timestamp) — this is the thread to reply to
@@ -16,8 +16,8 @@ Compile a weekly summary of work done, then find the trigger message in the dev 
 3. **Compile this week's git log** across all active repos — run in parallel with step 3b:
    - Run `TZ="Europe/London" date` to get today's date
    - Work out the Monday of the current week
-   - For each repo in `~/Sites/` that's relevant to active projects (smf-movewhatmatters, elastic-dashboard, archetype-apac, archetype-uk-non-bedrock, qvc-core-wp-engine, qvc-careers-wp-engine, archetype-ai-pa), run:
-     `git -C ~/Sites/[repo] log --format="%ad | %an | %s" --date=short -20 2>/dev/null`
+   - For each repo found via `**Local path:**` values in `context/projects/` files (read in step 1), run:
+     `git -C [local path] log --format="%ad | %an | %s" --date=short -20 2>/dev/null`
    - Filter for commits from the current week (Mon–today) by the user (author: `ryan-archetype`)
    - Group by project
 
@@ -45,7 +45,7 @@ Compile a weekly summary of work done, then find the trigger message in the dev 
    - If multiple small things were done on one project, group them into a single coherent sentence
 
 5. **Reply to the trigger message in-thread** using `slack_send_message`:
-   - `channel`: `GK79HAEQM`
+   - `channel`: the `#ops-development-uk` channel ID read from `context/about.md`
    - `thread_ts`: the `ts` of the trigger message from step 2 — this is REQUIRED, do not omit it
    - `text`: the composed update
    - Never post as a top-level channel message — always reply in the thread of the trigger message
@@ -53,7 +53,7 @@ Compile a weekly summary of work done, then find the trigger message in the dev 
 6. **Confirm** in the conversation that the reply was sent, and show the text that was posted.
 
 ## Notes
-- If no trigger message is found in the last 20 messages, post the update as a new message to the channel (not a thread reply) and note this in the conversation
+- If no trigger message is found in the last 20 messages, search for it using `slack_search_public_and_private` with query `"what did I do this week" in:#ops-development-uk` before falling back to a new top-level post.
 - The tone should be team-facing — readable by Andy, Aaliyah, and others in the dev channel
 - Week runs Mon–Fri; if today is Thursday, the update covers Mon–Thu
 - Don't include Atlas PA / internal tooling commits in the update unless they're significant enough to mention to the team
