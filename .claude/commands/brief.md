@@ -5,26 +5,28 @@ Turn client feedback into a structured implementation brief ready for Dex (or Ar
 ## Usage
 
 ```
-/brief <source>
+/brief <source> [<source2> <source3> ...]
 ```
 
-Where `<source>` is one of:
+Where each `<source>` is one of:
 - A **Slack thread URL** (e.g. `https://archetype.slack.com/archives/C.../p...`)
 - A **Google Drive doc URL**
 - A **Figma file or frame URL**
 - **Pasted notes** — just type or paste them after `/brief`
 
+Multiple sources are supported — pass as many URLs or blocks of notes as needed. All sources are fetched, then merged into a single brief. Each piece of feedback is attributed to its source.
+
 ## Steps
 
-### 1. Identify the source type
+### 1. Identify the source types
 
-Inspect the argument:
+For each argument:
 - URL containing `slack.com` → fetch via Slack MCP
 - URL containing `docs.google.com` or `drive.google.com` → fetch via Google Drive MCP
 - URL containing `figma.com` → fetch via Figma MCP
 - Anything else → treat as raw notes (use directly)
 
-### 2. Fetch the content
+### 2. Fetch all content in parallel
 
 **Slack thread URL:**
 Parse the channel ID and thread timestamp from the URL. Format: `/archives/<channelId>/p<timestamp>` — the timestamp has an implied decimal 6 places from the right (e.g. `p1234567890123456` → `1234567890.123456`).
@@ -53,7 +55,7 @@ Read the relevant `context/projects/` file. Match the project based on:
 - The Slack channel ID if it came from a thread (cross-reference channels listed in `context/about.md`)
 - The Figma or Drive file if it matches a URL stored in a project file
 
-If unclear, ask the user which project before continuing.
+If multiple sources point to the same project, proceed. If sources span different projects, ask the user whether to write one combined brief or separate ones before continuing. If the project is unclear, ask.
 
 ### 4. Determine the recipient
 
@@ -110,7 +112,8 @@ If no, or if the user wants to edit: make any requested changes first, then ask 
 ## Notes
 
 - Always attribute feedback to specific people — "client said" is not enough
-- If the source contains multiple unrelated requests, ask the user whether to combine them into one brief or split into separate ones
+- If sources span multiple unrelated projects, ask before combining into one brief or splitting
+- If a single source contains multiple unrelated requests, ask whether to combine or split
 - Briefs are saved to `context/briefs/` — this folder is gitignored (personal context)
 - The project slug should match the folder/filename convention already in use (e.g. `smf`, `elastic`, `apac`, `qvc`)
 - If the source is ambiguous or lacks enough detail to write specific instructions, flag what's missing rather than guessing
