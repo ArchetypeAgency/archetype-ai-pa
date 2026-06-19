@@ -15,6 +15,10 @@ Firebase config is in `context/about.md` under **Brain Pie**.
 
 ## Steps
 
+### 0. Check time
+
+Run `/checktime` to get the current London time and date.
+
 ### 1. Read pie from Firebase
 
 Read DB URL, project ID, secret, and UID from `context/about.md` under **Brain Pie**, then:
@@ -47,6 +51,16 @@ New spoke structure:
 }
 ```
 
+**Scheduled spokes** — to show a green date pill in the app, use `type: "single"` and set `scheduled` as an object (not epoch ms):
+```json
+{
+  "text": "Task description",
+  "type": "single",
+  "scheduled": { "allDay": true, "date": "YYYY-MM-DD" },
+  "metadata": { "calendarEventId": null, "recurrence": null }
+}
+```
+
 New IDs: generate a UUID string (e.g. via `python3 -c "import uuid; print(uuid.uuid4())"` or similar).
 
 ### 3. Write updated pie to Firebase
@@ -74,4 +88,4 @@ List what was added, removed, or updated — one line each.
 - A spoke missing from the pie means the user deleted it — do not re-add it
 - `lastModified` must be updated on every write (epoch ms) so the app knows the data is fresh
 - Meta only needs updating if pieIds/pieNames change — most syncs only touch the pie blob
-- Valid spoke `type` values: `static` (single task line — always use this for Atlas-generated spokes) and `list` (multi-step task with `children` array, each child has `text` and `completed` boolean). When in doubt, use `static`.
+- Valid spoke `type` values: `static` (single task line), `single` (scheduled task — use when a date is set), and `list` (multi-step task with `children` array, each child has `text` and `completed` boolean). Use `static` for unscheduled tasks, `single` for tasks with a date. When in doubt, use `static`.

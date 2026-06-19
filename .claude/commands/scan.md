@@ -6,6 +6,8 @@ Run a Slack and email scan across all active projects and deliver a structured b
 
 ## Steps
 
+0. Run `/checktime` to get the current London time and date.
+
 1. **Read context files** to know which Slack channels and project contacts to check:
    - Always read `context/about.md` — it contains the full Slack channel list, Slack handle, and member ID
    - Also read any files in `context/projects/` for project-specific context and contacts

@@ -1,5 +1,23 @@
 {
   "additionalDirectories": [".."],
+  "permissions": {
+    "allow": [
+      "Bash(curl -s https://ryan-atlas-brainpie-default-rtdb.europe-west1.firebasedatabase.app/*)",
+      "Bash(curl -s -X PUT https://ryan-atlas-brainpie-default-rtdb.europe-west1.firebasedatabase.app/*)",
+      "Bash(DB=*)",
+      "Edit(~/Sites/smf-movewhatmatters/*)",
+      "Write(~/Sites/smf-movewhatmatters/*)",
+      "Edit(/Users/ryan.holder/Sites/archetype-uk-non-bedrock/*)",
+      "Write(/Users/ryan.holder/Sites/archetype-uk-non-bedrock/*)",
+      "Bash(cd /Users/ryan.holder/Sites/archetype-uk-non-bedrock*)",
+      "Bash(git -C /Users/ryan.holder/Sites/archetype-uk-non-bedrock*)",
+      "Bash(npm --prefix /Users/ryan.holder/Sites/archetype-uk-non-bedrock*)",
+      "Edit(/Users/ryan.holder/Sites/elastic-dashboard/*)",
+      "Write(/Users/ryan.holder/Sites/elastic-dashboard/*)",
+      "Bash(cd /Users/ryan.holder/Sites/elastic-dashboard*)",
+      "Bash(git -C /Users/ryan.holder/Sites/elastic-dashboard*)"
+    ]
+  },
   "hooks": {
     "SessionStart": [
       {

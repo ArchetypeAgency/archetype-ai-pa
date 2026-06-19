@@ -18,6 +18,10 @@ Multiple sources are supported — pass as many URLs or blocks of notes as neede
 
 ## Steps
 
+### 0. Check time
+
+Run `/checktime` to get the current London time and date.
+
 ### 1. Identify the source types
 
 For each argument:

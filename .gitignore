@@ -1,5 +1,2 @@
 # Personal context — fill these in locally, never commit them
-context/about.md
-context/brainpie.json
-context/projects/*.md
-!context/projects/_template.md
+context/

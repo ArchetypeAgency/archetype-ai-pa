@@ -4,6 +4,8 @@ Save session learnings back to the relevant project context files.
 
 ## Steps
 
+0. Run `/checktime` to get the current London time and date.
+
 1. **Review what changed this session** — look back at what was discussed, decided, built, or learned.
 
 2. **For each affected project**, update the context file in `context/projects/`:
