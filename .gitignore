@@ -1,2 +1,5 @@
 # Personal context — fill these in locally, never commit them
-context/
+context/*
+!context/projects/_template.md
+!context/about-template.md
+!context/security
