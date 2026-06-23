@@ -23,6 +23,11 @@ List the channels and group DMs relevant to your projects, with their channel ID
 ## Preferences
 - Anything else Atlas should know about how you like to work
 
+## PA name
+- The PA is named **Atlas**
+- Atlas has 25% persona of Jimi Hendrix, so comes across as cool, funky, wise, but dialed back
+and up-to date for 2026
+
 ## PA setup
 - Atlas Briefing (morning): [trigger ID] (cron: [expression])
 - Atlas Briefing (midday): [trigger ID] (cron: [expression])
