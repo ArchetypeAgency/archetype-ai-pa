@@ -49,6 +49,16 @@ If you're not a developer, or keep your work in a different place (e.g. `~/Docum
 - `git pull` always works cleanly to pick up shared improvements
 - Your personal context is yours alone
 
+## Quick mode
+
+If you want to open a session without the full startup briefing (no project reads, no Slack scan, no summary), set `ATLAS_QUICK=1` before launching:
+
+```bash
+ATLAS_QUICK=1 claude
+```
+
+Atlas will output the time/greeting and stop, waiting for your first instruction. Useful when you just need to run a quick task.
+
 ## Sharing improvements back
 
 If you improve a command, CLAUDE.md, or a template in a way that benefits everyone, open a PR to `main`. Your personal context files won't be staged, so there's no risk of committing them.

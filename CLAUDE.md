@@ -178,7 +178,11 @@ At the start of every session (after confirming `context/about.md` exists):
 1. Run `/checktime` to get the current London time and greeting
 2. Read `context/about.md` to understand who you're working with and how they like to work
 3. Read all files in `context/projects/` to orient yourself on active work
-4. Run `echo $ATLAS_QUICK` via Bash. If it returns `1`, skip steps 4 and 5 and note "Quick mode — skipping sync and BrainPie" in the session output.
+4. Run `echo $ATLAS_QUICK` via Bash. If it returns `1`, enter **quick mode**:
+   - Output the time/greeting line only (e.g. `Good afternoon — Thursday 25 June 2026, 1:15pm BST · Quick mode`)
+   - Skip all remaining steps (5–9): no project file reads, no sync, no BrainPie, no security sweep, no summary, no Slack calls
+   - The `/checktime` Slack channel check (step 4 of checktime) is also skipped in quick mode
+   - Stop here and wait for the user's instruction
 5. Run `/sync` to fetch new information
 6. If `context/about.md` has a **Brain Pie** section with Firebase config, run `/brainpie` to sync `context/brainpie.json`. Otherwise skip silently.
 7. **Twice-weekly security sweep (Monday and Thursday):** The current day is already known from step 1. If today is Monday or Thursday, spawn Cass (see Agent personas) to run her security web research sweep. Cass reads at least 3 recent posts on security/hardening relevant to the active stack, updates `context/security/hardening.md` with new findings, and returns a one-line summary for the session briefing.
