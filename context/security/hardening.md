@@ -143,6 +143,26 @@ Entries are actionable checks and recommendations, not news. Each has a first-se
 
 ---
 
+### Node.js June 2026 security release — TLS bypass, WebCrypto crash, HTTP/2 DoS (12 CVEs)
+**First seen:** 2026-06-25
+**Stack:** Node.js (SMF microsite / AWS, Elastic dashboard / Render.com)
+**Status:** [ ] open
+**Finding:** Node.js released security updates on 18 June 2026 covering 12 CVEs across Node.js 22, 24, and 26. Two are HIGH severity: CVE-2026-48618 (TLS wildcard-depth authentication bypass via unicode dot separator normalisation mismatch — confidentiality impact or security boundary bypass) and CVE-2026-48933 (WebCrypto process crash if `subtle.encrypt()` input is a multiple of 2 GiB). Additional notable issues: CVE-2026-48619 (HTTP/2 excessive ORIGIN frames → unbounded memory / DoS), proxy credential exposure in ERR_PROXY_TUNNEL error messages when credentials are embedded in proxy URLs, and a Permission Model path-misvalidation bypass via `process.report.writeReport()`. All three active Node.js lines (22, 24, 26) were affected prior to patching.
+**Check:** `node --version` in each project environment. Patched versions: 22.23.0, 24.17.0, 26.3.1. For Render.com: check the runtime version in `render.yaml` or service settings. For AWS/SMF: check the Lambda/EC2 Node.js runtime.
+**Action:** Update Node.js runtimes to 22.23.0 / 24.17.0 / 26.3.1 or later. For Render.com deployments, update the Node version in `render.yaml` (`node_version`) and redeploy. For any service running behind a proxy with credentials embedded in the URL, rotate proxy credentials and move them to environment variables.
+
+---
+
+### EssentialPlugin WordPress supply chain backdoor (April 2026)
+**First seen:** 2026-06-25
+**Stack:** WordPress / WPEngine
+**Status:** [ ] open
+**Finding:** A malicious actor acquired the EssentialPlugin plugin portfolio (25+ plugins) via Flippa in late 2025, introduced a PHP object deserialisation backdoor in the first commit, and activated it in April 2026. The backdoor communicated with `analytics.essentialplugin.com`, injected SEO spam visible only to search engine crawlers, and enabled arbitrary file writes. WordPress.org closed all 31 affected plugins simultaneously. Over 400,000 installs were compromised. This is the primary plugin supply chain attack pattern: acquire an established plugin, add a backdoor, wait. It is not unique to EssentialPlugin.
+**Check:** `wp plugin list` — search for any EssentialPlugin-origin plugins (check the plugin header's Author URI against `essentialplugin.com`). More broadly: identify any plugin that recently changed ownership or whose update history shows an ownership change (author name/URL change in plugin metadata). For sites with unexplained SEO spam, scan with a malware scanner (MalCare, Wordfence, Sucuri) and check for suspicious cron jobs (`wp cron event list`).
+**Action:** Remove any EssentialPlugin-origin plugins (all 31 are permanently closed on WordPress.org — no further updates will be issued). For general supply chain hygiene: monitor plugin authorship changes via Wordfence Intelligence or Patchstack; prefer plugins with established multi-person maintenance rather than single-author portfolios; treat any plugin acquired via marketplace (Flippa, CodeCanyon) as higher risk. If infection is suspected, check for injected files in `wp-content/uploads/` and suspicious entries in `wp_options` (autoloaded values, unusual cron schedules).
+
+---
+
 ### WordPress plugin patch window — 97% of CVEs are plugin/theme origin
 **First seen:** 2026-06-18
 **Stack:** WordPress / WPEngine
