@@ -1,4 +1,4 @@
-# Archetype PA — Atlas
+# Archetype PA — Jimi
 
 A personal assistant for Archetype team members, built on Claude Code.
 
@@ -19,19 +19,19 @@ cd archetype-ai-pa
 claude
 ```
 
-That's it. Atlas will introduce itself and walk you through the rest.
+That's it. Jimi will introduce itself and walk you through the rest.
 
 ## What setup configures
 
 - Your profile (name, email, role, tools)
 - Your Slack channels to monitor
-- Which folders Atlas can access on your machine
-- Your daily Atlas Briefing triggers (8:50am and 12:50pm, Mon–Fri)
+- Which folders Jimi can access on your machine
+- Your daily Jimi Briefing triggers (8:50am and 12:50pm, Mon–Fri)
 - Your first project file (optional)
 
 ## Folder access
 
-Atlas can access the folder this repo lives in and everything alongside it by default. For example, if you clone into `~/Sites/archetype-ai-pa`, Atlas can read other repos in `~/Sites/`.
+Jimi can access the folder this repo lives in and everything alongside it by default. For example, if you clone into `~/Sites/archetype-ai-pa`, Jimi can read other repos in `~/Sites/`.
 
 If you're not a developer, or keep your work in a different place (e.g. `~/Documents`, `~/Uploads`, a shared drive), setup will ask you which folders to add. You can also edit `.claude/settings.json` at any time:
 
@@ -51,13 +51,13 @@ If you're not a developer, or keep your work in a different place (e.g. `~/Docum
 
 ## Quick mode
 
-If you want to open a session without the full startup briefing (no project reads, no Slack scan, no summary), set `ATLAS_QUICK=1` before launching:
+If you want to open a session without the full startup briefing (no project reads, no Slack scan, no summary), set `JIMI_QUICK=1` before launching:
 
 ```bash
-ATLAS_QUICK=1 claude
+JIMI_QUICK=1 claude
 ```
 
-Atlas will output the time/greeting and stop, waiting for your first instruction. Useful when you just need to run a quick task.
+Jimi will output the time/greeting and stop, waiting for your first instruction. Useful when you just need to run a quick task.
 
 ## Sharing improvements back
 
