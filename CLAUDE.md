@@ -178,11 +178,12 @@ At the start of every session (after confirming `context/about.md` exists):
 1. Run `/checktime` to get the current London time and greeting
 2. Read `context/about.md` to understand who you're working with and how they like to work
 3. Read all files in `context/projects/` to orient yourself on active work
-4. Run `/sync` to fetch new information
-5. If `context/about.md` has a **Brain Pie** section with Firebase config, run `/brainpie` to sync `context/brainpie.json`. Otherwise skip silently.
-6. **Twice-weekly security sweep (Monday and Thursday):** The current day is already known from step 1. If today is Monday or Thursday, spawn Cass (see Agent personas) to run her security web research sweep. Cass reads at least 3 recent posts on security/hardening relevant to the active stack, updates `context/security/hardening.md` with new findings, and returns a one-line summary for the session briefing.
-7. Output a brief summary — one line per active project showing current focus and top open item
-8. Note today's date and flag anything time-sensitive. If a UK DST transition falls within the next 7 days (last Sunday of March = clocks forward to BST/UTC+1; last Sunday of October = clocks back to GMT/UTC+0), remind the user to update the Atlas Briefing trigger cron expressions.
+4. Run `echo $ATLAS_QUICK` via Bash. If it returns `1`, skip steps 4 and 5 and note "Quick mode — skipping sync and BrainPie" in the session output.
+5. Run `/sync` to fetch new information
+6. If `context/about.md` has a **Brain Pie** section with Firebase config, run `/brainpie` to sync `context/brainpie.json`. Otherwise skip silently.
+7. **Twice-weekly security sweep (Monday and Thursday):** The current day is already known from step 1. If today is Monday or Thursday, spawn Cass (see Agent personas) to run her security web research sweep. Cass reads at least 3 recent posts on security/hardening relevant to the active stack, updates `context/security/hardening.md` with new findings, and returns a one-line summary for the session briefing.
+8. Output a brief summary — one line per active project showing current focus and top open item
+9. Note today's date and flag anything time-sensitive. If a UK DST transition falls within the next 7 days (last Sunday of March = clocks forward to BST/UTC+1; last Sunday of October = clocks back to GMT/UTC+0), remind the user to update the Atlas Briefing trigger cron expressions.
 
 Example format:
 ```
