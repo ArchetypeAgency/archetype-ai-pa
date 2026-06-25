@@ -163,6 +163,36 @@ Entries are actionable checks and recommendations, not news. Each has a first-se
 
 ---
 
+### Kirki plugin unauthenticated account takeover (CVE-2026-8206)
+**First seen:** 2026-06-25
+**Stack:** WordPress / WPEngine
+**Status:** [ ] open
+**Finding:** CVSS 9.8 critical, actively exploited. The Kirki — Freeform Page Builder & Customizer plugin (500,000+ installs) has a broken password reset flow in `handle_forgot_password`. When a reset is requested by username rather than email, the plugin sends the reset link to the attacker-supplied email instead of the account's registered email — granting full account takeover including admin accounts. No authentication or user interaction required. Wordfence confirmed active exploitation (59 blocked attempts in a 24-hour window). ~150,000 sites remain on vulnerable versions. Patched in version 6.0.7 (released 18 May 2026).
+**Check:** `wp plugin get kirki --field=version`. Versions 6.0.0–6.0.6 are vulnerable.
+**Action:** Update Kirki to 6.0.7 or later on all sites using it. If Kirki is not actively in use on a site, consider removing it — the page builder functionality is rarely essential post-build and inactive plugins with critical CVEs remain an attack surface.
+
+---
+
+### Miasma worm — AI IDE config injection and npm preinstall credential theft (June 2026)
+**First seen:** 2026-06-25
+**Stack:** GitHub Actions CI/CD / Node.js / npm
+**Status:** [ ] open
+**Finding:** Miasma is a self-propagating supply chain worm first observed in the Red Hat npm incident (June 2026) that has since compromised 73 Microsoft GitHub repositories. Two distinct attack vectors relevant to this stack: (1) **npm preinstall hook**: trojanised packages execute a heavily obfuscated dropper at `npm install` time, downloading the Bun runtime and harvesting credentials from GitHub, npm, AWS, Azure, GCP, password managers, and Kubernetes secret stores. (2) **AI IDE config injection**: Miasma forges commits to inject malicious configuration files targeting AI coding agents (Claude Code, Cursor, Copilot), causing the agent to exfiltrate secrets on next invocation. The toolkit uses GitHub itself as C2 — no external infrastructure to block. On 5 June 2026, GitHub disabled 73 repositories across four Microsoft organisations after a malicious commit was pushed via a compromised contributor account. The worm's source code was briefly leaked on GitHub on 10 June 2026, broadening the attacker pool. All three major cloud provider credential types (AWS, Azure, GCP) are targeted.
+**Check:** Review all `.github/workflows/` files for recently modified action `uses:` pins — Miasma has been observed moving tag references to imposter commits (the actions-cool/issues-helper incident). Inspect `.claude/`, `.cursor/`, and Copilot config files in any repository for unexpected entries. Run `npm audit` and cross-reference installed packages against the 32 known trojanised `@redhat-cloud-services` scope packages. For AWS: check CloudTrail for unusual AssumeRole or credential-use events from CI/CD IP ranges.
+**Action:** Combine with existing npm supply chain control (`ignore-scripts=true` in `.npmrc` — see below). For GitHub Actions: pin all third-party actions to full commit SHAs (see action-pinning entry). Treat AI IDE config files (`.claude/`, `.cursor/`) as attack surface: add them to a protected branch policy requiring review before merge. Enable GitHub's push protection and secret scanning on all repos. If a repository was recently cloned or a developer machine was potentially compromised, rotate AWS, GitHub, and npm credentials immediately.
+
+---
+
+### actions/checkout v7 — automatic pwn-request protection (June 2026)
+**First seen:** 2026-06-25
+**Stack:** GitHub Actions CI/CD
+**Status:** [ ] open
+**Finding:** GitHub released actions/checkout v7 on 18 June 2026 with default protection against "pwn request" attacks. The attack pattern: a `pull_request_target` workflow checks out and executes code from a fork PR — giving attacker-controlled code access to repository secrets and the `GITHUB_TOKEN`. v7 now refuses to fetch fork PR code in `pull_request_target` and `workflow_run` workflows unless the workflow author explicitly sets `allow-unsafe-pr-checkout: true`. Backport to all supported major versions (v3, v4) is scheduled for 16 July 2026 — workflows using floating tags (e.g. `actions/checkout@v4`) will automatically gain protection on that date. Workflows pinned to a specific SHA or patch version will not receive the backport and require a manual upgrade.
+**Check:** Search `.github/workflows/` for any `pull_request_target` trigger combined with `actions/checkout`. Identify whether those workflows are pinned to a floating major tag (will auto-update 16 July) or a specific SHA/patch version (requires manual upgrade). Also identify any workflows that already set `allow-unsafe-pr-checkout: true` — those are explicitly opting out of protection and should be reviewed.
+**Action:** For workflows pinned to a specific SHA that use `pull_request_target`: upgrade to `actions/checkout@v7` (pinned to v7's SHA). For any workflow with `allow-unsafe-pr-checkout: true`: review whether the unsafe checkout is genuinely required and find a safer alternative (e.g. separate the untrusted-code execution from the privileged step using a two-workflow pattern). After 16 July backport: verify floating-tag workflows are running v7 behaviour.
+
+---
+
 ### WordPress plugin patch window — 97% of CVEs are plugin/theme origin
 **First seen:** 2026-06-18
 **Stack:** WordPress / WPEngine
