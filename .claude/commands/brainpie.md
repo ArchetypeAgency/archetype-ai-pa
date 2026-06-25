@@ -42,7 +42,30 @@ pie = data['pies'][active_pie_id]
 priorities = data.get('priorities', {}).get(active_pie_id, [])
 ```
 
-### 2. Reconcile
+### 2. Scan for what to add — be proactive
+
+Before reconciling, actively source new material. Don't only look at what's already in the pie:
+
+**Scan context files** — read all `context/projects/` files and pull out every outstanding item, recent change, and flagged risk that isn't already represented.
+
+**Scan Slack and email** — if a `/scan` or `/sync` has run this session (or you have recent Slack/email output in context), mine it for:
+- Anything mentioned as urgent, overdue, or blocked
+- Any concrete future dates: calls, launches, transitions, deadlines, renewals, expiries
+- Any red-dot or warning items that should be visible on the pie
+
+**Look forward for schedule pills** — schedule pills are the most powerful visual cue in BrainPie. For every date-anchored item you find, create a `single` type sub-item with `scheduled.date` set. Look for:
+- Upcoming calls and reviews with known dates
+- Phase transitions or launch windows
+- Token/secret/subscription expiry dates
+- OOO windows (yours and key contacts)
+- Rota changes or shift anomalies
+- Monthly recurring admin (invoices, reports)
+
+**Add new slices when a theme isn't represented** — if a whole area of work (e.g. Security, a new client, a recurring admin theme) has no slice, create one. New categories should get a `categoryPercentageOverrides` entry sized to reflect their real weight.
+
+**Don't wait to be asked** — if something belongs in BrainPie, add it. The goal is that the pie reflects everything real, not just what was last manually updated.
+
+### 3. Reconcile
 
 Make any changes Atlas needs to make — add spokes, update dates, remove completed items. 
 

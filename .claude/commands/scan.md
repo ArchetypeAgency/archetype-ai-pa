@@ -17,6 +17,7 @@ Run a Slack and email scan across all active projects and deliver a structured b
    - Pull the last 20 messages from each relevant channel or group DM
    - For every message that has replies, read the full thread using `slack_read_thread`
    - Also run a thread scan: `slack_search_public_and_private` with query `[SLACK HANDLE] is:thread` (handle from `context/about.md`)
+   - **Check dev channel for Atlas questions** — read `#ops-development-uk` (GK79HAEQM) and look for any messages addressed to Atlas (e.g. "Atlas, …"). For each: read the full thread; if no Atlas reply exists yet, answer in-thread. Don't re-answer questions that already have a reply from Atlas. This is included as part of the Slack scan step so it doesn't run twice (checktime also does this check — skip it here if checktime already ran this session).
 
 3. **Scan email** using `outlook_email_search`:
    - Search for unread emails from known project contacts (names and domains from context files)
