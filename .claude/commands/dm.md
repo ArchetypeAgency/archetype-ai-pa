@@ -23,7 +23,7 @@ Run a Slack sweep and email scan across all active projects and deliver the brie
 4. **Compose the briefing** in this format:
 
 ```
-## Atlas Briefing — [date, time]
+## Jimi Briefing — [date, time]
 
 ### 🔴 Needs action
 [Items requiring a response or decision from the user today — Slack and email combined]

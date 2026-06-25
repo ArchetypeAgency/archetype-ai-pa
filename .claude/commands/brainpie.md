@@ -10,12 +10,12 @@ BrainPie reads and writes a JSON file directly on disk via the browser's File Sy
 **Cloud mode (Firebase)**
 BrainPie syncs to a Firebase Realtime Database. The user must have a Firebase project set up and credentials stored in `context/about.md`.
 
-## How Atlas maps to these
+## How Jimi maps to these
 
 Check `context/about.md` → Brain Pie → **Sync mode** before doing anything:
 
-- `Sync mode: file` — BrainPie is in **local mode**. Atlas reads/writes `context/brainpie.json` directly. The file is the source of truth. No Firebase calls.
-- `Sync mode: firebase` — BrainPie is in **cloud mode**. Atlas reads/writes via the Firebase REST API and keeps `context/brainpie.json` as a local cache.
+- `Sync mode: file` — BrainPie is in **local mode**. Jimi reads/writes `context/brainpie.json` directly. The file is the source of truth. No Firebase calls.
+- `Sync mode: firebase` — BrainPie is in **cloud mode**. Jimi reads/writes via the Firebase REST API and keeps `context/brainpie.json` as a local cache.
 
 **Setting up a new work instance:** set `Sync mode: file` in `context/about.md`, then open BrainPie, go to Settings → Storage → Local file, and point it at `context/brainpie.json` in this repo. Both sides now read/write the same file — no push step needed.
 
@@ -25,7 +25,7 @@ Check `context/about.md` → Brain Pie → **Sync mode** before doing anything:
 
 Read and update `context/brainpie.json` — the file BrainPie is watching. No Firebase calls needed. Report what changed.
 
-Atlas reads `context/brainpie.json`, makes any changes needed, updates `lastModified`, and writes it back. BrainPie picks up the changes directly from the file because it holds the file handle open.
+Jimi reads `context/brainpie.json`, makes any changes needed, updates `lastModified`, and writes it back. BrainPie picks up the changes directly from the file because it holds the file handle open.
 
 ## Steps
 
@@ -67,10 +67,10 @@ Before reconciling, actively source new material. Don't only look at what's alre
 
 ### 3. Reconcile
 
-Make any changes Atlas needs to make — add spokes, update dates, remove completed items. 
+Make any changes Jimi needs to make — add spokes, update dates, remove completed items. 
 
 - **Preserve** user-set percentages, colors, IDs, and scheduled dates
-- **Check** the relevant project file's `## Recent changes` log — if a spoke was recently deleted by Atlas, don't re-add it
+- **Check** the relevant project file's `## Recent changes` log — if a spoke was recently deleted by Jimi, don't re-add it
 - **Ask** before making any change you're unsure about
 
 New spoke structure:
@@ -136,7 +136,7 @@ Priorities live at `data['priorities'][pieId]` in the same file:
 - ⚠️ `spokeIndex` is positional — if spokes are reordered in the pie, the index can drift
 
 ## Notes
-- In **file mode**: `context/brainpie.json` is the source of truth — what's in the file is what BrainPie shows. No push step needed, but **BrainPie requires a browser reload to pick up Atlas's writes** — the File System Access API does not watch for external changes.
+- In **file mode**: `context/brainpie.json` is the source of truth — what's in the file is what BrainPie shows. No push step needed, but **BrainPie requires a browser reload to pick up Jimi's writes** — the File System Access API does not watch for external changes.
 - In **firebase mode**: `context/brainpie.json` is a local cache. Firebase is the source of truth. Always write back to the cache after a Firebase read.
 - Always read before writing — never reconstruct from scratch
 - `lastModified` must be updated on every write (epoch ms) so BrainPie knows the data is fresh
@@ -144,7 +144,7 @@ Priorities live at `data['priorities'][pieId]` in the same file:
 
 ## Firebase mode
 
-When `Sync mode: firebase` in `context/about.md`, Atlas reads/writes via the Firebase REST API.
+When `Sync mode: firebase` in `context/about.md`, Jimi reads/writes via the Firebase REST API.
 `context/brainpie.json` is the local cache — still update it after each Firebase read so the file stays current.
 Firebase config lives in `context/about.md` under **Brain Pie**.
 

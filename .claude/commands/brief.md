@@ -78,7 +78,7 @@ Create `context/briefs/<project-slug>-<YYYY-MM-DD>.md` using this format:
 ```markdown
 # [Artor/Dex] Brief — <short description>
 **Date:** <today's date>
-**From:** Atlas (PM)
+**From:** Jimi (PM)
 **To:** <Artor (design director) → Dex (senior dev) | Dex (senior dev)>
 
 ---

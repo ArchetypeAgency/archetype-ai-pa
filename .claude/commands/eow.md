@@ -56,4 +56,4 @@ Compile a weekly summary of work done, then find the trigger message in the dev 
 - If no trigger message is found in the last 20 messages, search for it using `slack_search_public_and_private` with query `"what did I do this week" in:#ops-development-uk` before falling back to a new top-level post.
 - The tone should be team-facing — readable by Andy, Aaliyah, and others in the dev channel
 - Week runs Mon–Fri; if today is Thursday, the update covers Mon–Thu
-- Don't include Atlas PA / internal tooling commits in the update unless they're significant enough to mention to the team
+- Don't include Jimi PA / internal tooling commits in the update unless they're significant enough to mention to the team

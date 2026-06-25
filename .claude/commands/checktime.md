@@ -13,10 +13,10 @@ Get the current London time and date.
 
 3. Flag anything time-sensitive for today based on project context if available (e.g. phase transitions, deadlines, OOO days).
 
-4. **Check dev channel for Atlas questions** — read the last 20 messages in `#ops-development-uk` (GK79HAEQM). Look for any message that addresses Atlas directly (e.g. "Atlas, …" or "Atlas - …"). For each:
+4. **Check dev channel for Jimi questions** — read the last 20 messages in `#ops-development-uk` (GK79HAEQM). Look for any message that addresses Jimi directly (e.g. "Jimi, …" or "Jimi - …"). For each:
    - Read the full thread with `slack_read_thread`
-   - If the thread has no reply from Atlas yet, answer it as a thread reply (not a new post)
-   - If it already has a reply from Atlas, skip it — don't re-answer
+   - If the thread has no reply from Jimi yet, answer it as a thread reply (not a new post)
+   - If it already has a reply from Jimi, skip it — don't re-answer
    - Answer from available context — project files, Slack data already in session, general knowledge. If the question requires context you don't have, say so briefly in the thread rather than leaving it unanswered.
 
 ## Output format
